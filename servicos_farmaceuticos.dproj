@@ -98,10 +98,11 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="uPrincipal.pas">
+        <DCCReference Include="uPrincipalView.pas">
             <Form>Form1</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="DAO\uConexaoDAO.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -2,7 +2,8 @@ program servicos_farmaceuticos;
 
 uses
   Vcl.Forms,
-  uPrincipal in 'uPrincipal.pas' {Form1};
+  uPrincipalView in 'uPrincipalView.pas' {Form1},
+  uConexaoDAO in 'DAO\uConexaoDAO.pas';
 
 {$R *.res}
 

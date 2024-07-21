@@ -1,4 +1,4 @@
-unit uPrincipal;
+unit uPrincipalView;
 
 interface
 
