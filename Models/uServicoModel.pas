@@ -24,7 +24,7 @@ type
 
   public
     function GetServicos: TFDQuery;
-    function Save: Boolean;
+    function Save: integer;
     procedure LoadById(AIdServico: Integer);
     property id_servico : integer read Fid_servico write Setid_servico;
     property Data: TDate read FData write SetData;
@@ -53,7 +53,7 @@ begin
   end;
 end;
 
-function TServicoModel.Save: Boolean;
+function TServicoModel.Save: integer;
 var vServicoDAO: TServicoDAO;
 begin
   vServicoDAO := TServicoDAO.Create;
