@@ -53,7 +53,6 @@ type
     vServicoControl: TServicoControl;
     vProcedimentoControl: TProcedimentoControl;
     procedure BuscarProcedimentos;
-    procedure BuscarValor;
     { Private declarations }
   public
     procedure LoadServico(AIdServico: Integer);
@@ -69,6 +68,7 @@ implementation
 
 procedure TfrmServicoView.BuscarProcedimentos;
 var  vQuery : TFDQuery;
+     valorTotal : Double;
 begin
   memProcedimentos.Close;
 
@@ -76,15 +76,18 @@ begin
   try
     vQuery.FetchAll;
     memProcedimentos.Data := vQuery.Data;
+
+    valorTotal := vProcedimentoControl.GetValorTotal(vServicoControl.ServicoModel.id_servico);
+    Label8.Caption := 'R$ ' + FormatFloat('0.00', valorTotal);
+
+    vServicoControl.ServicoModel.Acao := uAcaoModel.tEditar;
+    vServicoControl.ServicoModel.Valor_Total := valorTotal;
+
+    vServicoControl.ServicoModel.Save;
   finally
     vQuery.Close;
     FreeAndNil(vQuery);
   end;
-end;
-
-procedure TfrmServicoView.BuscarValor;
-begin
-
 end;
 
 procedure TfrmServicoView.Button1Click(Sender: TObject);
@@ -112,7 +115,9 @@ begin
   vServicoControl.ServicoModel.Paciente := ePaciente.Text;
   vServicoControl.ServicoModel.Obs := Memo1.Text;
 
-  if vServicoControl.Save then
+  vServicoControl.ServicoModel.id_servico := vServicoControl.Save;
+
+  if vServicoControl.ServicoModel.id_servico <> 0 then
   begin
     ShowMessage('Registro Salvo!');
   end;
@@ -159,6 +164,7 @@ end;
 
 procedure TfrmServicoView.FormCreate(Sender: TObject);
 begin
+  Memo1.Text := '';
   vServicoControl := TServicoControl.Create;
   vServicoControl.ServicoModel.Acao := uAcaoModel.tAdicionar;
 

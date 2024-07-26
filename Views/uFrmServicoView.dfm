@@ -1,9 +1,9 @@
 object frmServicoView: TfrmServicoView
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Servi'#231'o Farmac'#234'utico'
   ClientHeight = 625
-  ClientWidth = 534
+  ClientWidth = 593
   Color = clTeal
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object frmServicoView: TfrmServicoView
   object Panel1: TPanel
     Left = 10
     Top = 10
-    Width = 514
+    Width = 573
     Height = 605
     Margins.Left = 15
     Margins.Top = 15
@@ -32,6 +32,8 @@ object frmServicoView: TfrmServicoView
     FullRepaint = False
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 510
+    ExplicitHeight = 604
     object Label1: TLabel
       Left = 53
       Top = 44
@@ -63,7 +65,7 @@ object frmServicoView: TfrmServicoView
     object Bevel1: TBevel
       Left = 8
       Top = 252
-      Width = 497
+      Width = 553
       Height = 4
     end
     object Label5: TLabel
@@ -93,7 +95,7 @@ object frmServicoView: TfrmServicoView
       ParentFont = False
     end
     object Label7: TLabel
-      Left = 332
+      Left = 404
       Top = 580
       Width = 61
       Height = 15
@@ -106,11 +108,11 @@ object frmServicoView: TfrmServicoView
       ParentFont = False
     end
     object Label8: TLabel
-      Left = 412
+      Left = 484
       Top = 580
-      Width = 56
+      Width = 42
       Height = 15
-      Caption = 'R$ 310,50'
+      Caption = 'R$ 0,00'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
@@ -141,12 +143,12 @@ object frmServicoView: TfrmServicoView
     end
     object Memo1: TMemo
       Left = 104
-      Top = 117
-      Width = 385
+      Top = 119
+      Width = 444
       Height = 93
       Lines.Strings = (
         'Memo1')
-      TabOrder = 0
+      TabOrder = 3
     end
     object Button1: TButton
       Left = 26
@@ -154,22 +156,39 @@ object frmServicoView: TfrmServicoView
       Width = 75
       Height = 25
       Caption = 'Adicionar'
-      TabOrder = 1
+      TabOrder = 9
       OnClick = Button1Click
     end
     object DBGrid1: TDBGrid
       Left = 26
       Top = 400
-      Width = 463
+      Width = 522
       Height = 174
       DataSource = dsProcedimentos
       Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-      TabOrder = 2
+      TabOrder = 8
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'tipo'
+          Width = 200
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'descricao'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'valor'
+          Visible = True
+        end>
     end
     object Button2: TButton
       Left = 26
@@ -177,22 +196,22 @@ object frmServicoView: TfrmServicoView
       Width = 75
       Height = 25
       Caption = 'Salvar'
-      TabOrder = 3
+      TabOrder = 4
       OnClick = Button2Click
     end
     object ePaciente: TEdit
       Left = 104
       Top = 41
-      Width = 385
+      Width = 444
       Height = 23
-      TabOrder = 4
+      TabOrder = 0
     end
     object eFarmaceutico: TEdit
       Left = 104
-      Top = 66
-      Width = 385
+      Top = 65
+      Width = 444
       Height = 23
-      TabOrder = 5
+      TabOrder = 1
     end
     object Button3: TButton
       Left = 107
@@ -200,16 +219,17 @@ object frmServicoView: TfrmServicoView
       Width = 75
       Height = 25
       Caption = 'Remover'
-      TabOrder = 6
+      TabOrder = 10
       OnClick = Button3Click
     end
     object ComboBox1: TComboBox
       Left = 104
       Top = 292
-      Width = 385
+      Width = 444
       Height = 23
       Style = csDropDownList
-      TabOrder = 7
+      TabOrder = 5
+      StyleName = 'Windows'
       Items.Strings = (
         'Aten'#231#227'o Farmac'#234'utica Domiciliar'
         'Aferi'#231#227'o de Par'#226'metros Fisiol'#243'gicos'
@@ -219,27 +239,27 @@ object frmServicoView: TfrmServicoView
     object Edit1: TEdit
       Left = 104
       Top = 317
-      Width = 385
+      Width = 444
       Height = 23
-      TabOrder = 8
+      TabOrder = 6
     end
     object Edit2: TEdit
       Left = 104
       Top = 342
       Width = 120
       Height = 23
-      TabOrder = 9
+      TabOrder = 7
     end
-  end
-  object MaskEdit1: TMaskEdit
-    Left = 114
-    Top = 101
-    Width = 120
-    Height = 23
-    EditMask = '!99/99/0000;1;_'
-    MaxLength = 10
-    TabOrder = 1
-    Text = '  /  /    '
+    object MaskEdit1: TMaskEdit
+      Left = 104
+      Top = 91
+      Width = 120
+      Height = 23
+      EditMask = '!99/99/0000;1;_'
+      MaxLength = 10
+      TabOrder = 2
+      Text = '  /  /    '
+    end
   end
   object memProcedimentos: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
