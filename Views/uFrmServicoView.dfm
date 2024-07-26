@@ -2,7 +2,7 @@ object frmServicoView: TfrmServicoView
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 528
+  ClientHeight = 556
   ClientWidth = 534
   Color = clTeal
   Font.Charset = DEFAULT_CHARSET
@@ -14,12 +14,15 @@ object frmServicoView: TfrmServicoView
   Padding.Top = 10
   Padding.Right = 10
   Padding.Bottom = 10
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   TextHeight = 15
   object Panel1: TPanel
     Left = 10
     Top = 10
     Width = 514
-    Height = 508
+    Height = 536
     Margins.Left = 15
     Margins.Top = 15
     Margins.Right = 15
@@ -28,8 +31,6 @@ object frmServicoView: TfrmServicoView
     FullRepaint = False
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 25
-    ExplicitHeight = 544
     object Label1: TLabel
       Left = 53
       Top = 44
@@ -60,7 +61,7 @@ object frmServicoView: TfrmServicoView
     end
     object Bevel1: TBevel
       Left = 8
-      Top = 222
+      Top = 252
       Width = 497
       Height = 4
     end
@@ -79,7 +80,7 @@ object frmServicoView: TfrmServicoView
     end
     object Label6: TLabel
       Left = 8
-      Top = 232
+      Top = 262
       Width = 115
       Height = 21
       Caption = 'Procedimentos'
@@ -92,7 +93,7 @@ object frmServicoView: TfrmServicoView
     end
     object Label7: TLabel
       Left = 332
-      Top = 479
+      Top = 509
       Width = 61
       Height = 15
       Caption = 'Valor Total:'
@@ -105,7 +106,7 @@ object frmServicoView: TfrmServicoView
     end
     object Label8: TLabel
       Left = 412
-      Top = 479
+      Top = 509
       Width = 56
       Height = 15
       Caption = 'R$ 310,50'
@@ -116,20 +117,6 @@ object frmServicoView: TfrmServicoView
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object Edit1: TEdit
-      Left = 104
-      Top = 41
-      Width = 385
-      Height = 23
-      TabOrder = 0
-    end
-    object Edit2: TEdit
-      Left = 104
-      Top = 66
-      Width = 385
-      Height = 23
-      TabOrder = 1
-    end
     object Memo1: TMemo
       Left = 104
       Top = 117
@@ -137,27 +124,50 @@ object frmServicoView: TfrmServicoView
       Height = 93
       Lines.Strings = (
         'Memo1')
-      TabOrder = 2
+      TabOrder = 0
     end
     object Button1: TButton
       Left = 26
-      Top = 268
+      Top = 298
       Width = 75
       Height = 25
       Caption = 'Novo'
-      TabOrder = 3
+      TabOrder = 1
     end
     object DBGrid1: TDBGrid
       Left = 26
-      Top = 299
+      Top = 329
       Width = 463
       Height = 174
-      TabOrder = 4
+      TabOrder = 2
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
+    end
+    object Button2: TButton
+      Left = 26
+      Top = 218
+      Width = 75
+      Height = 25
+      Caption = 'Salvar'
+      TabOrder = 3
+      OnClick = Button2Click
+    end
+    object ePaciente: TEdit
+      Left = 104
+      Top = 41
+      Width = 385
+      Height = 23
+      TabOrder = 4
+    end
+    object eFarmaceutico: TEdit
+      Left = 104
+      Top = 66
+      Width = 385
+      Height = 23
+      TabOrder = 5
     end
   end
   object MaskEdit1: TMaskEdit

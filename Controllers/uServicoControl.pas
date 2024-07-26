@@ -10,7 +10,7 @@ type
     FServicoModel: TServicoModel;
 
   public
-
+    function Save: Boolean;
     function GetServicos: TFDQuery;
 
     constructor Create;
@@ -36,7 +36,12 @@ end;
 
 function TServicoControl.GetServicos: TFDQuery;
 begin
-  FServicoModel.GetServicos;
+  Result := FServicoModel.GetServicos;
+end;
+
+function TServicoControl.Save: Boolean;
+begin
+  Result := FServicoModel.Save;
 end;
 
 end.

@@ -19,8 +19,13 @@ type
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
-    FDMemTable1: TFDMemTable;
     dsServicos: TDataSource;
+    FDMemTable1: TFDMemTable;
+    FDMemTable1ID: TIntegerField;
+    FDMemTable1data: TDateField;
+    FDMemTable1farmaceutico: TStringField;
+    FDMemTable1paciente: TStringField;
+    FDMemTable1valor_total: TBCDField;
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -54,7 +59,7 @@ begin
     finally
       vQuery.Close;
       vQuery.Free;
-      end;
+    end;
   finally
     FreeAndNil(vServicoControl);
   end;
