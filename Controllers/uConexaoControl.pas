@@ -30,7 +30,7 @@ end;
 
 destructor TConexaoControl.Destroy;
 begin
-  FreeAndNil(FConexao);
+  FConexao.Free;
 
   inherited;
 end;
@@ -39,10 +39,10 @@ class function TConexaoControl.GetInstance: TConexaoControl;
 begin
   if not Assigned(Self.FInstance) then
   begin
-    FInstance := TConexaoControl.Create();
+    Self.FInstance := TConexaoControl.Create();
   end;
 
-  Result := FInstance;
+  Result := Self.FInstance;
 end;
 
 end.
