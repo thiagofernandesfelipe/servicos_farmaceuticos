@@ -2,6 +2,8 @@ unit uServicoModel;
 
 interface
 
+uses uAcaoModel;
+
 type
   TServicoModel = class
   private
@@ -10,11 +12,13 @@ type
     FValorTotal: Double;
     FFarmaceutico: string;
     FData: TDate;
+    FAcao: TAcao;
     procedure SetData(const Value: TDate);
     procedure SetFarmaceutico(const Value: string);
     procedure SetObs(const Value: string);
     procedure SetPaciente(const Value: string);
     procedure SetValorTotal(const Value: Double);
+    procedure SetAcao(const Value: TAcao);
 
   public
     property Data: TDate read FData write SetData;
@@ -22,13 +26,18 @@ type
     property Paciente: string read FPaciente write SetPaciente;
     property Obs: string read FObs write SetObs;
     property ValorTotal: Double read FValorTotal write SetValorTotal;
-
+    property Acao: TAcao read FAcao write SetAcao;
 
   end;
 
 implementation
 
 { TServicoModel }
+
+procedure TServicoModel.SetAcao(const Value: TAcao);
+begin
+  FAcao := Value;
+end;
 
 procedure TServicoModel.SetData(const Value: TDate);
 begin
