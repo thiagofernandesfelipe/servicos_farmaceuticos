@@ -32,7 +32,6 @@ object frmServicoView: TfrmServicoView
     FullRepaint = False
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 536
     object Label1: TLabel
       Left = 53
       Top = 44
@@ -156,6 +155,7 @@ object frmServicoView: TfrmServicoView
       Height = 25
       Caption = 'Adicionar'
       TabOrder = 1
+      OnClick = Button1Click
     end
     object DBGrid1: TDBGrid
       Left = 26
@@ -250,27 +250,19 @@ object frmServicoView: TfrmServicoView
     UpdateOptions.AutoCommitUpdates = True
     Left = 234
     Top = 480
-    object IntegerField1: TIntegerField
-      DisplayLabel = 'ID'
-      FieldName = 'id_servico'
-    end
-    object DateField1: TDateField
-      DisplayLabel = 'Data'
-      DisplayWidth = 10
-      FieldName = 'data'
-    end
-    object StringField1: TStringField
-      DisplayLabel = 'Farmac'#234'utico'
+    object memProcedimentostipo: TStringField
+      DisplayLabel = 'Tipo'
       DisplayWidth = 30
-      FieldName = 'farmaceutico'
+      FieldName = 'tipo'
     end
-    object StringField2: TStringField
-      DisplayLabel = 'Paciente'
-      FieldName = 'paciente'
+    object memProcedimentosdescricao: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      DisplayWidth = 30
+      FieldName = 'descricao'
     end
-    object BCDField1: TBCDField
-      DisplayLabel = 'Valor Total'
-      FieldName = 'valor_total'
+    object memProcedimentosvalor: TBCDField
+      DisplayLabel = 'Valor'
+      FieldName = 'valor'
       Size = 2
     end
   end

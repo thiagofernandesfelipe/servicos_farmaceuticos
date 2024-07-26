@@ -8,7 +8,7 @@ uses
   Vcl.Mask, Vcl.Grids, Data.DB, Vcl.DBGrids, uServicoControl, uAcaoModel,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uProcedimentoControl;
 
 type
   TfrmServicoView = class(TForm)
@@ -35,20 +35,21 @@ type
     Label10: TLabel;
     Edit1: TEdit;
     Label11: TLabel;
-    Edit2: TEdit;
     memProcedimentos: TFDMemTable;
-    IntegerField1: TIntegerField;
-    DateField1: TDateField;
-    StringField1: TStringField;
-    StringField2: TStringField;
-    BCDField1: TBCDField;
     dsProcedimentos: TDataSource;
+    Edit2: TEdit;
+    memProcedimentostipo: TStringField;
+    memProcedimentosdescricao: TStringField;
+    memProcedimentosvalor: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
   private
     vServicoControl: TServicoControl;
+    vProcedimentoControl: TProcedimentoControl;
+    procedure BuscarProcedimentos;
     { Private declarations }
   public
     procedure LoadServico(AIdServico: Integer);
@@ -61,6 +62,35 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmServicoView.BuscarProcedimentos;
+var  vQuery : TFDQuery;
+begin
+  memProcedimentos.Close;
+
+  vQuery := vProcedimentoControl.GetProcedimentosByServico(vServicoControl.ServicoModel.id_servico);
+  try
+    vQuery.FetchAll;
+    memProcedimentos.Data := vQuery.Data;
+  finally
+    vQuery.Close;
+    FreeAndNil(vQuery);
+  end;
+end;
+
+procedure TfrmServicoView.Button1Click(Sender: TObject);
+begin
+  vProcedimentoControl.ProcedimentoModel.Acao := uAcaoModel.tAdicionar;
+  vProcedimentoControl.ProcedimentoModel.Id_Servico := vServicoControl.ServicoModel.id_servico;
+  vProcedimentoControl.ProcedimentoModel.Tipo := ComboBox1.Text;
+  vProcedimentoControl.ProcedimentoModel.Descricao := Edit1.Text;
+  vProcedimentoControl.ProcedimentoModel.Valor := StrToFloat(Edit2.Text);
+
+  if vProcedimentoControl.Save then
+    ShowMessage('Procedimento Adicionado!');
+
+  Self.BuscarProcedimentos;
+end;
 
 procedure TfrmServicoView.Button2Click(Sender: TObject);
 begin
@@ -79,12 +109,12 @@ procedure TfrmServicoView.LoadServico(AIdServico: Integer);
 begin
   try
     vServicoControl.ServicoModel.LoadById(AIdServico);
-
     MaskEdit1.Text := DateToStr(vServicoControl.ServicoModel.Data);
     eFarmaceutico.Text := vServicoControl.ServicoModel.Farmaceutico;
     ePaciente.Text := vServicoControl.ServicoModel.Paciente;
     Memo1.Text := vServicoControl.ServicoModel.Obs;
     vServicoControl.ServicoModel.Acao := uAcaoModel.tEditar;
+    Self.BuscarProcedimentos;
   except
     on E: Exception do
     begin
@@ -105,11 +135,14 @@ procedure TfrmServicoView.FormCreate(Sender: TObject);
 begin
   vServicoControl := TServicoControl.Create;
   vServicoControl.ServicoModel.Acao := uAcaoModel.tAdicionar;
+
+  vProcedimentoControl := TProcedimentoControl.Create;
 end;
 
 procedure TfrmServicoView.FormDestroy(Sender: TObject);
 begin
   vServicoControl.Free;
+  vProcedimentoControl.Free;
 end;
 
 end.

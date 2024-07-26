@@ -113,10 +113,8 @@ begin
   begin
     vServicoControl.ServicoModel.Acao := uAcaoModel.tDeletar;
     vServicoControl.ServicoModel.id_servico := memServicosID.Value;
-
     if vServicoControl.Save then
       ShowMessage('Excluído com sucesso!');
-
     Self.BuscarServicos;
   end;
 end;

@@ -106,7 +106,6 @@ begin
   vQuery := FConexao.CriarQuery();
   vQuery.Open('select id_servico, data, farmaceutico, paciente, obs, valor_total from servico_farmaceutico'+
               ' where id_servico = :id_servico', [AIdServico]);
-
   Result := vQuery;
 end;
 

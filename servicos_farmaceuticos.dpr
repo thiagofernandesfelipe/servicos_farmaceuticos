@@ -10,6 +10,8 @@ uses
   uAcaoModel in 'Models\uAcaoModel.pas',
   uFrmServicoView in 'Views\uFrmServicoView.pas' {frmServicoView},
   uServicoControl in 'Controllers\uServicoControl.pas',
+  uProcedimentoControl in 'Controllers\uProcedimentoControl.pas',
+  uProcedimentoDAO in 'DAO\uProcedimentoDAO.pas',
   uProcedimentoModel in 'Models\uProcedimentoModel.pas';
 
 {$R *.res}

@@ -114,6 +114,8 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Controllers\uServicoControl.pas"/>
+        <DCCReference Include="Controllers\uProcedimentoControl.pas"/>
+        <DCCReference Include="DAO\uProcedimentoDAO.pas"/>
         <DCCReference Include="Models\uProcedimentoModel.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
