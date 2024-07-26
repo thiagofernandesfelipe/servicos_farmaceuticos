@@ -15,6 +15,8 @@ type
 
     constructor Create;
     destructor Destroy; override;
+
+    property ServicoModel: TServicoModel read FServicoModel write FServicoModel;
   end;
 
 implementation

@@ -23,7 +23,10 @@ type
     dsServicos: TDataSource;
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
+    vServicoControl: TServicoControl;
     procedure BuscarServicos;
     { Private declarations }
   public
@@ -40,10 +43,9 @@ uses uFrmServicoView;
 {$R *.dfm}
 
 procedure TuPrincipalForm.BuscarServicos;
-var vServicoControl : TServicoControl;
-    vQuery : TFDQuery;
+var  vQuery : TFDQuery;
 begin
-  vServicoControl := TServicoControl.Create;
+  FDMemTable1.Close;
   try
     vQuery := vServicoControl.GetServicos;
     try
@@ -51,8 +53,8 @@ begin
       FDMemTable1.Data := vQuery.Data;
     finally
       vQuery.Close;
-      FreeAndNil(vQuery);
-    end;
+      vQuery.Free;
+      end;
   finally
     FreeAndNil(vServicoControl);
   end;
@@ -71,7 +73,17 @@ end;
 
 procedure TuPrincipalForm.Button4Click(Sender: TObject);
 begin
-  BuscarServicos;
+  Self.BuscarServicos;
+end;
+
+procedure TuPrincipalForm.FormCreate(Sender: TObject);
+begin
+  vServicoControl := TServicoControl.Create;
+end;
+
+procedure TuPrincipalForm.FormDestroy(Sender: TObject);
+begin
+  vServicoControl.Free;
 end;
 
 end.

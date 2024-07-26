@@ -29,7 +29,8 @@ var vQuery : TFDQuery;
 begin
   vQuery := FConexao.CriarQuery();
 
-  vQuery.Open('select * from servico_farmaceutico');
+  vQuery.Open('select id_servico, data, farmaceutico, paciente, obs, valor_total from servico_farmaceutico');
+  //vQuery.FetchAll;
 
   Result := vQuery;
 end;

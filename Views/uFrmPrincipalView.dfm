@@ -12,6 +12,8 @@ object uPrincipalForm: TuPrincipalForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   Visible = True
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
@@ -29,8 +31,6 @@ object uPrincipalForm: TuPrincipalForm
     Padding.Bottom = 10
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 1094
-    ExplicitHeight = 707
     DesignSize = (
       1098
       708)
@@ -96,7 +96,7 @@ object uPrincipalForm: TuPrincipalForm
     TabOrder = 1
     OnClick = Button4Click
   end
-  object FDMemTable1: TFDMemTable
+  object mmTableClientes: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -104,9 +104,17 @@ object uPrincipalForm: TuPrincipalForm
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 232
-    Top = 296
-  end
+    Left = 440
+    Top = 16
+    object mmTableClientesCODIGO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+    end
+    object mmTableClientesNOME: TStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 40
+      FieldName = 'NOME'
+    end
   object dsServicos: TDataSource
     DataSet = FDMemTable1
     Left = 368
