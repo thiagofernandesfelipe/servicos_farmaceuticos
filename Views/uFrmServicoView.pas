@@ -33,6 +33,7 @@ type
     vServicoControl: TServicoControl;
     { Private declarations }
   public
+    procedure LoadServico(AIdServico: Integer);
     { Public declarations }
   end;
 
@@ -45,19 +46,39 @@ implementation
 
 procedure TfrmServicoView.Button2Click(Sender: TObject);
 begin
-  vServicoControl.ServicoModel.Acao := uAcaoModel.tAdicionar;
   vServicoControl.ServicoModel.Data := StrToDate(MaskEdit1.Text);
   vServicoControl.ServicoModel.Farmaceutico := eFarmaceutico.Text;
   vServicoControl.ServicoModel.Paciente := ePaciente.Text;
   vServicoControl.ServicoModel.Obs := Memo1.Text;
 
   if vServicoControl.Save then
-    ShowMessage('Registro Adicionado!');
+    ShowMessage('Registro Salvo!');
 end;
+
+procedure TfrmServicoView.LoadServico(AIdServico: Integer);
+begin
+  try
+    vServicoControl.ServicoModel.LoadById(AIdServico);
+
+    MaskEdit1.Text := DateToStr(vServicoControl.ServicoModel.Data);
+    eFarmaceutico.Text := vServicoControl.ServicoModel.Farmaceutico;
+    ePaciente.Text := vServicoControl.ServicoModel.Paciente;
+    Memo1.Text := vServicoControl.ServicoModel.Obs;
+    vServicoControl.ServicoModel.Acao := uAcaoModel.tEditar;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro ao carregar serviço: ' + E.Message);
+      ModalResult := mrCancel;
+    end;
+  end;
+end;
+
 
 procedure TfrmServicoView.FormCreate(Sender: TObject);
 begin
   vServicoControl := TServicoControl.Create;
+  vServicoControl.ServicoModel.Acao := uAcaoModel.tAdicionar;
 end;
 
 procedure TfrmServicoView.FormDestroy(Sender: TObject);
