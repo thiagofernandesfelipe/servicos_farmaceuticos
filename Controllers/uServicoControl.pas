@@ -36,7 +36,7 @@ end;
 
 function TServicoControl.GetServicos: TFDQuery;
 begin
-  FServicoModel.GetServicos;
+  Result := FServicoModel.GetServicos;
 end;
 
 end.
