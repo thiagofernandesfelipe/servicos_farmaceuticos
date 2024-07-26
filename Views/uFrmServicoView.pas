@@ -53,6 +53,7 @@ type
     vServicoControl: TServicoControl;
     vProcedimentoControl: TProcedimentoControl;
     procedure BuscarProcedimentos;
+    procedure BuscarValor;
     { Private declarations }
   public
     procedure LoadServico(AIdServico: Integer);
@@ -79,6 +80,11 @@ begin
     vQuery.Close;
     FreeAndNil(vQuery);
   end;
+end;
+
+procedure TfrmServicoView.BuscarValor;
+begin
+
 end;
 
 procedure TfrmServicoView.Button1Click(Sender: TObject);

@@ -13,6 +13,7 @@ type
   public
     function Save: Boolean;
     function GetProcedimentosByServico(AIdProcedimento: integer): TFDQuery;
+    function GetValorTotal(AIdServico: Integer): Double;
 
     constructor Create;
     destructor Destroy; override;
@@ -39,6 +40,11 @@ end;
 function TProcedimentoControl.GetProcedimentosByServico(AIdProcedimento: integer): TFDQuery;
 begin
   Result := FProcedimentoModel.GetProcedimentosByServico(AIdProcedimento);
+end;
+
+function TProcedimentoControl.GetValorTotal(AIdServico: Integer): Double;
+begin
+  Result := FProcedimentoModel.GetValorTotal(AidServico);
 end;
 
 function TProcedimentoControl.Save: Boolean;
