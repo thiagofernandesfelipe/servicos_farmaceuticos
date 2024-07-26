@@ -33,7 +33,20 @@ type
 
 implementation
 
+uses uServicoDAO;
+
 { TServicoModel }
+
+function TServicoModel.GetServicos: TFDQuery;
+var vServicoDAO: TServicoDAO;
+begin
+  vServicoDAO := TServicoDAO.Create;
+  try
+    Result := vServicoDAO.GetServicos;
+  finally
+    vServicoDAO.Free;
+  end;
+end;
 
 procedure TServicoModel.SetAcao(const Value: TAcao);
 begin
