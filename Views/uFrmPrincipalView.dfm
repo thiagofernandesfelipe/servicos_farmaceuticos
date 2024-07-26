@@ -41,6 +41,7 @@ object uPrincipalForm: TuPrincipalForm
       Height = 659
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataSource = dsServicos
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -96,7 +97,7 @@ object uPrincipalForm: TuPrincipalForm
     TabOrder = 1
     OnClick = Button4Click
   end
-  object mmTableClientes: TFDMemTable
+  object FDMemTable1: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -104,17 +105,32 @@ object uPrincipalForm: TuPrincipalForm
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 440
-    Top = 16
-    object mmTableClientesCODIGO: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
+    Left = 184
+    Top = 320
+    object FDMemTable1ID: TIntegerField
+      DisplayLabel = 'ID'
+      FieldName = 'id_servico'
     end
-    object mmTableClientesNOME: TStringField
-      DisplayLabel = 'Nome'
-      DisplayWidth = 40
-      FieldName = 'NOME'
+    object FDMemTable1data: TDateField
+      DisplayLabel = 'Data'
+      DisplayWidth = 10
+      FieldName = 'data'
     end
+    object FDMemTable1farmaceutico: TStringField
+      DisplayLabel = 'Farmac'#234'utico'
+      DisplayWidth = 30
+      FieldName = 'farmaceutico'
+    end
+    object FDMemTable1paciente: TStringField
+      DisplayLabel = 'Paciente'
+      FieldName = 'paciente'
+    end
+    object FDMemTable1valor_total: TBCDField
+      DisplayLabel = 'Valor Total'
+      FieldName = 'valor_total'
+      Size = 2
+    end
+  end
   object dsServicos: TDataSource
     DataSet = FDMemTable1
     Left = 368
