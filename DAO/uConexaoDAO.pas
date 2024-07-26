@@ -28,7 +28,7 @@ implementation
 procedure TConexaoDAO.ConfigurarConexao;
 begin
   FConn.Params.DriverID := 'MySQL';
-  FConn.Params.Database := 'teste';
+  FConn.Params.Database := 'farmacia_banco';
   FConn.Params.UserName := 'root';
   FConn.Params.Password := 'rootroot';
   FConn.Params.Add('Server=localhost');

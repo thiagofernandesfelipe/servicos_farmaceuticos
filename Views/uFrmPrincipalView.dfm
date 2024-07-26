@@ -36,10 +36,11 @@ object uPrincipalForm: TuPrincipalForm
       708)
     object DBGrid1: TDBGrid
       Left = 8
-      Top = 102
-      Width = 607
-      Height = 597
+      Top = 40
+      Width = 603
+      Height = 659
       Anchors = [akLeft, akTop, akRight, akBottom]
+      DataSource = dsServicos
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -48,10 +49,10 @@ object uPrincipalForm: TuPrincipalForm
       TitleFont.Style = []
     end
     object DBGrid2: TDBGrid
-      Left = 630
-      Top = 102
+      Left = 626
+      Top = 40
       Width = 457
-      Height = 597
+      Height = 659
       Anchors = [akTop, akRight, akBottom]
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
@@ -70,20 +71,45 @@ object uPrincipalForm: TuPrincipalForm
       OnClick = Button1Click
     end
     object Button2: TButton
-      Left = 8
-      Top = 40
+      Left = 89
+      Top = 9
       Width = 75
       Height = 25
       Caption = 'Editar'
       TabOrder = 3
     end
     object Button3: TButton
-      Left = 8
-      Top = 71
+      Left = 170
+      Top = 9
       Width = 75
       Height = 25
       Caption = 'Excluir'
       TabOrder = 4
     end
+  end
+  object Button4: TButton
+    Left = 251
+    Top = 9
+    Width = 75
+    Height = 25
+    Caption = 'Buscar'
+    TabOrder = 1
+    OnClick = Button4Click
+  end
+  object FDMemTable1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 232
+    Top = 296
+  end
+  object dsServicos: TDataSource
+    DataSet = FDMemTable1
+    Left = 368
+    Top = 304
   end
 end
