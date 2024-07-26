@@ -25,7 +25,7 @@ type
   public
     function GetServicos: TFDQuery;
     function Save: Boolean;
-
+    procedure LoadById(AIdServico: Integer);
     property id_servico : integer read Fid_servico write Setid_servico;
     property Data: TDate read FData write SetData;
     property Farmaceutico: string read FFarmaceutico write SetFarmaceutico;
@@ -62,6 +62,32 @@ begin
       uAcaoModel.tAdicionar: Result := vServicoDAO.Add(Self);
       uAcaoModel.tEditar: Result := vServicoDAO.Edit(Self);
       uAcaoModel.tDeletar: Result := vServicoDAO.Delete(Self);
+    end;
+  finally
+    vServicoDAO.Free;
+  end;
+end;
+
+procedure TServicoModel.LoadById(AIdServico: Integer);
+var
+  vServicoDAO: TServicoDAO;
+  vQuery: TFDQuery;
+begin
+  vServicoDAO := TServicoDAO.Create;
+  try
+    vQuery := vServicoDAO.GetServicoById(AIdServico);
+    try
+      if not vQuery.IsEmpty then
+      begin
+        Fid_servico := vQuery.FieldByName('id_servico').AsInteger;
+        FData := vQuery.FieldByName('data').AsDateTime;
+        FFarmaceutico := vQuery.FieldByName('farmaceutico').AsString;
+        FPaciente := vQuery.FieldByName('paciente').AsString;
+        FObs := vQuery.FieldByName('obs').AsString;
+        FValor_Total := vQuery.FieldByName('valor_total').AsFloat;
+      end;
+    finally
+      vQuery.Free;
     end;
   finally
     vServicoDAO.Free;

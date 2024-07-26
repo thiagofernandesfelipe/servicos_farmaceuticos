@@ -2,7 +2,7 @@ object frmServicoView: TfrmServicoView
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 556
+  ClientHeight = 625
   ClientWidth = 534
   Color = clTeal
   Font.Charset = DEFAULT_CHARSET
@@ -15,6 +15,7 @@ object frmServicoView: TfrmServicoView
   Padding.Right = 10
   Padding.Bottom = 10
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   TextHeight = 15
@@ -22,7 +23,7 @@ object frmServicoView: TfrmServicoView
     Left = 10
     Top = 10
     Width = 514
-    Height = 536
+    Height = 605
     Margins.Left = 15
     Margins.Top = 15
     Margins.Right = 15
@@ -93,7 +94,7 @@ object frmServicoView: TfrmServicoView
     end
     object Label7: TLabel
       Left = 332
-      Top = 509
+      Top = 580
       Width = 61
       Height = 15
       Caption = 'Valor Total:'
@@ -106,7 +107,7 @@ object frmServicoView: TfrmServicoView
     end
     object Label8: TLabel
       Left = 412
-      Top = 509
+      Top = 580
       Width = 56
       Height = 15
       Caption = 'R$ 310,50'
@@ -116,6 +117,27 @@ object frmServicoView: TfrmServicoView
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 75
+      Top = 295
+      Width = 23
+      Height = 15
+      Caption = 'Tipo'
+    end
+    object Label10: TLabel
+      Left = 47
+      Top = 320
+      Width = 51
+      Height = 15
+      Caption = 'Descri'#231#227'o'
+    end
+    object Label11: TLabel
+      Left = 72
+      Top = 345
+      Width = 26
+      Height = 15
+      Caption = 'Valor'
     end
     object Memo1: TMemo
       Left = 104
@@ -128,17 +150,20 @@ object frmServicoView: TfrmServicoView
     end
     object Button1: TButton
       Left = 26
-      Top = 298
+      Top = 369
       Width = 75
       Height = 25
-      Caption = 'Novo'
+      Caption = 'Adicionar'
       TabOrder = 1
+      OnClick = Button1Click
     end
     object DBGrid1: TDBGrid
       Left = 26
-      Top = 329
+      Top = 400
       Width = 463
       Height = 174
+      DataSource = dsProcedimentos
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 2
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -169,6 +194,42 @@ object frmServicoView: TfrmServicoView
       Height = 23
       TabOrder = 5
     end
+    object Button3: TButton
+      Left = 107
+      Top = 369
+      Width = 75
+      Height = 25
+      Caption = 'Remover'
+      TabOrder = 6
+      OnClick = Button3Click
+    end
+    object ComboBox1: TComboBox
+      Left = 104
+      Top = 292
+      Width = 385
+      Height = 23
+      Style = csDropDownList
+      TabOrder = 7
+      Items.Strings = (
+        'Aten'#231#227'o Farmac'#234'utica Domiciliar'
+        'Aferi'#231#227'o de Par'#226'metros Fisiol'#243'gicos'
+        'Aferi'#231#227'o de Par'#226'metros Bioqu'#237'micos'
+        'Administra'#231#227'o de Medicamentos')
+    end
+    object Edit1: TEdit
+      Left = 104
+      Top = 317
+      Width = 385
+      Height = 23
+      TabOrder = 8
+    end
+    object Edit2: TEdit
+      Left = 104
+      Top = 342
+      Width = 120
+      Height = 23
+      TabOrder = 9
+    end
   end
   object MaskEdit1: TMaskEdit
     Left = 114
@@ -179,5 +240,42 @@ object frmServicoView: TfrmServicoView
     MaxLength = 10
     TabOrder = 1
     Text = '  /  /    '
+  end
+  object memProcedimentos: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 234
+    Top = 480
+    object memProcedimentostipo: TStringField
+      DisplayLabel = 'Tipo'
+      DisplayWidth = 30
+      FieldName = 'tipo'
+    end
+    object memProcedimentosdescricao: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      DisplayWidth = 30
+      FieldName = 'descricao'
+    end
+    object memProcedimentosvalor: TBCDField
+      DisplayLabel = 'Valor'
+      FieldName = 'valor'
+      Size = 2
+    end
+    object memProcedimentosid_servico: TIntegerField
+      FieldName = 'id_servico'
+    end
+    object memProcedimentosid_procedimento: TIntegerField
+      FieldName = 'id_procedimento'
+    end
+  end
+  object dsProcedimentos: TDataSource
+    DataSet = memProcedimentos
+    Left = 394
+    Top = 472
   end
 end

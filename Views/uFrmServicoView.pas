@@ -5,7 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.Mask, Vcl.Grids, Data.DB, Vcl.DBGrids, uServicoControl, uAcaoModel;
+  Vcl.Mask, Vcl.Grids, Data.DB, Vcl.DBGrids, uServicoControl, uAcaoModel,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uProcedimentoControl;
 
 type
   TfrmServicoView = class(TForm)
@@ -26,13 +29,34 @@ type
     Button2: TButton;
     ePaciente: TEdit;
     eFarmaceutico: TEdit;
+    Button3: TButton;
+    Label9: TLabel;
+    ComboBox1: TComboBox;
+    Label10: TLabel;
+    Edit1: TEdit;
+    Label11: TLabel;
+    memProcedimentos: TFDMemTable;
+    dsProcedimentos: TDataSource;
+    Edit2: TEdit;
+    memProcedimentostipo: TStringField;
+    memProcedimentosdescricao: TStringField;
+    memProcedimentosvalor: TBCDField;
+    memProcedimentosid_servico: TIntegerField;
+    memProcedimentosid_procedimento: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     vServicoControl: TServicoControl;
+    vProcedimentoControl: TProcedimentoControl;
+    procedure BuscarProcedimentos;
+    procedure BuscarValor;
     { Private declarations }
   public
+    procedure LoadServico(AIdServico: Integer);
     { Public declarations }
   end;
 
@@ -43,26 +67,108 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmServicoView.BuscarProcedimentos;
+var  vQuery : TFDQuery;
+begin
+  memProcedimentos.Close;
+
+  vQuery := vProcedimentoControl.GetProcedimentosByServico(vServicoControl.ServicoModel.id_servico);
+  try
+    vQuery.FetchAll;
+    memProcedimentos.Data := vQuery.Data;
+  finally
+    vQuery.Close;
+    FreeAndNil(vQuery);
+  end;
+end;
+
+procedure TfrmServicoView.BuscarValor;
+begin
+
+end;
+
+procedure TfrmServicoView.Button1Click(Sender: TObject);
+begin
+  vProcedimentoControl.ProcedimentoModel.Acao := uAcaoModel.tAdicionar;
+  vProcedimentoControl.ProcedimentoModel.Id_Servico := vServicoControl.ServicoModel.id_servico;
+  vProcedimentoControl.ProcedimentoModel.Tipo := ComboBox1.Text;
+  vProcedimentoControl.ProcedimentoModel.Descricao := Edit1.Text;
+  vProcedimentoControl.ProcedimentoModel.Valor := StrToFloat(Edit2.Text);
+
+  if vProcedimentoControl.Save then
+    ShowMessage('Procedimento Adicionado!');
+
+  ComboBox1.ItemIndex := -1;
+  Edit1.Text := '';
+  Edit2.Text := '';
+
+  Self.BuscarProcedimentos;
+end;
+
 procedure TfrmServicoView.Button2Click(Sender: TObject);
 begin
-  vServicoControl.ServicoModel.Acao := uAcaoModel.tAdicionar;
   vServicoControl.ServicoModel.Data := StrToDate(MaskEdit1.Text);
   vServicoControl.ServicoModel.Farmaceutico := eFarmaceutico.Text;
   vServicoControl.ServicoModel.Paciente := ePaciente.Text;
   vServicoControl.ServicoModel.Obs := Memo1.Text;
 
   if vServicoControl.Save then
-    ShowMessage('Registro Adicionado!');
+  begin
+    ShowMessage('Registro Salvo!');
+  end;
+end;
+
+procedure TfrmServicoView.Button3Click(Sender: TObject);
+begin
+  if MessageDlg('Tem certeza que deseja deletar este serviço?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    vProcedimentoControl.ProcedimentoModel.Acao := uAcaoModel.tDeletar;
+    vProcedimentoControl.ProcedimentoModel.id_servico := memProcedimentosid_servico.Value;
+    vProcedimentoControl.ProcedimentoModel.id_procedimento := memProcedimentosid_procedimento.Value;
+    if vProcedimentoControl.Save then
+      ShowMessage('Excluído com sucesso!');
+    Self.BuscarProcedimentos;
+  end;
+end;
+
+procedure TfrmServicoView.LoadServico(AIdServico: Integer);
+begin
+  try
+    vServicoControl.ServicoModel.LoadById(AIdServico);
+    MaskEdit1.Text := DateToStr(vServicoControl.ServicoModel.Data);
+    eFarmaceutico.Text := vServicoControl.ServicoModel.Farmaceutico;
+    ePaciente.Text := vServicoControl.ServicoModel.Paciente;
+    Memo1.Text := vServicoControl.ServicoModel.Obs;
+    vServicoControl.ServicoModel.Acao := uAcaoModel.tEditar;
+    Self.BuscarProcedimentos;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro ao carregar serviço: ' + E.Message);
+      ModalResult := mrCancel;
+    end;
+  end;
+end;
+
+
+procedure TfrmServicoView.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  ModalResult := mrOk;
 end;
 
 procedure TfrmServicoView.FormCreate(Sender: TObject);
 begin
   vServicoControl := TServicoControl.Create;
+  vServicoControl.ServicoModel.Acao := uAcaoModel.tAdicionar;
+
+  vProcedimentoControl := TProcedimentoControl.Create;
 end;
 
 procedure TfrmServicoView.FormDestroy(Sender: TObject);
 begin
   vServicoControl.Free;
+  vProcedimentoControl.Free;
 end;
 
 end.

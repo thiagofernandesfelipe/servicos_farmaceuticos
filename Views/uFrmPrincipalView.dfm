@@ -16,6 +16,7 @@ object uPrincipalForm: TuPrincipalForm
   WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnShow = FormShow
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
@@ -86,6 +87,7 @@ object uPrincipalForm: TuPrincipalForm
       Height = 25
       Caption = 'Editar'
       TabOrder = 3
+      OnClick = Button2Click
     end
     object Button3: TButton
       Left = 170
@@ -94,6 +96,7 @@ object uPrincipalForm: TuPrincipalForm
       Height = 25
       Caption = 'Excluir'
       TabOrder = 4
+      OnClick = Button3Click
     end
   end
   object Button4: TButton
@@ -105,7 +108,7 @@ object uPrincipalForm: TuPrincipalForm
     TabOrder = 1
     OnClick = Button4Click
   end
-  object FDMemTable1: TFDMemTable
+  object memServicos: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -115,33 +118,72 @@ object uPrincipalForm: TuPrincipalForm
     UpdateOptions.AutoCommitUpdates = True
     Left = 184
     Top = 320
-    object FDMemTable1ID: TIntegerField
+    object memServicosID: TIntegerField
       DisplayLabel = 'ID'
       FieldName = 'id_servico'
     end
-    object FDMemTable1data: TDateField
+    object memServicosdata: TDateField
       DisplayLabel = 'Data'
       DisplayWidth = 10
       FieldName = 'data'
     end
-    object FDMemTable1farmaceutico: TStringField
+    object memServicosfarmaceutico: TStringField
       DisplayLabel = 'Farmac'#234'utico'
       DisplayWidth = 30
       FieldName = 'farmaceutico'
     end
-    object FDMemTable1paciente: TStringField
+    object memServicospaciente: TStringField
       DisplayLabel = 'Paciente'
       FieldName = 'paciente'
     end
-    object FDMemTable1valor_total: TBCDField
+    object memServicosvalor_total: TBCDField
       DisplayLabel = 'Valor Total'
       FieldName = 'valor_total'
       Size = 2
     end
   end
   object dsServicos: TDataSource
-    DataSet = FDMemTable1
+    DataSet = memServicos
     Left = 368
     Top = 304
+  end
+  object dsProcedimentos: TDataSource
+    DataSet = memProcedimentos
+    Left = 920
+    Top = 304
+  end
+  object memProcedimentos: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 736
+    Top = 320
+    object IntegerField1: TIntegerField
+      DisplayLabel = 'ID'
+      FieldName = 'id_servico'
+    end
+    object DateField1: TDateField
+      DisplayLabel = 'Data'
+      DisplayWidth = 10
+      FieldName = 'data'
+    end
+    object StringField1: TStringField
+      DisplayLabel = 'Farmac'#234'utico'
+      DisplayWidth = 30
+      FieldName = 'farmaceutico'
+    end
+    object StringField2: TStringField
+      DisplayLabel = 'Paciente'
+      FieldName = 'paciente'
+    end
+    object BCDField1: TBCDField
+      DisplayLabel = 'Valor Total'
+      FieldName = 'valor_total'
+      Size = 2
+    end
   end
 end
