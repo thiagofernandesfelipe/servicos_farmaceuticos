@@ -2,7 +2,7 @@ unit uServicoDAO;
 
 interface
 
-uses FireDac.Comp.Client, uConexaoControl, uConexaoDAO, uServicoModel;
+uses FireDac.Comp.Client, uConexaoControl, uConexaoDAO, uServicoModel, SysUtils;
 
 type
   TServicoDAO = class
@@ -30,7 +30,7 @@ begin
     sql := 'insert into servico_farmaceutico(data, farmaceutico, paciente, obs, valor_total)'+
            ' values(:data, :farmaceutico, :paciente, :obs, :valor_total)';
 
-    vQuery.ExecSQL(sql, [AServicoModel.Data,
+    vQuery.ExecSQL(sql, [FormatDateTime('yyyy-mm-dd', AServicoModel.Data),
                          AServicoModel.Farmaceutico,
                          AServicoModel.Paciente,
                          AServicoModel.Obs,
