@@ -11,7 +11,9 @@ object uPrincipalForm: TuPrincipalForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Position = poScreenCenter
   Visible = True
+  WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   TextHeight = 15
@@ -41,13 +43,19 @@ object uPrincipalForm: TuPrincipalForm
       Height = 659
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataSource = dsServicos
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
       Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentFont = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Segoe UI'
-      TitleFont.Style = []
+      TitleFont.Style = [fsBold]
     end
     object DBGrid2: TDBGrid
       Left = 626
