@@ -8,7 +8,7 @@ uses
   Vcl.Grids, Vcl.DBGrids, Vcl.Menus, Vcl.ExtCtrls, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, uServicoControl, uAcaoModel;
+  FireDAC.Comp.Client, uServicoControl, uAcaoModel, Vcl.DBCtrls, uProcedimentoControl;
 
 type
   TuPrincipalForm = class(TForm)
@@ -27,12 +27,15 @@ type
     memServicospaciente: TStringField;
     memServicosvalor_total: TBCDField;
     dsProcedimentos: TDataSource;
+    DBMemo1: TDBMemo;
+    memServicosobs: TMemoField;
+    Label6: TLabel;
     memProcedimentos: TFDMemTable;
-    IntegerField1: TIntegerField;
-    DateField1: TDateField;
-    StringField1: TStringField;
-    StringField2: TStringField;
-    BCDField1: TBCDField;
+    memProcedimentostipo: TStringField;
+    memProcedimentosdescricao: TStringField;
+    memProcedimentosvalor: TBCDField;
+    memProcedimentosid_servico: TIntegerField;
+    memProcedimentosid_procedimento: TIntegerField;
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -40,9 +43,12 @@ type
     procedure Button2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure dsServicosDataChange(Sender: TObject; Field: TField);
   private
     vServicoControl: TServicoControl;
+    vProcedimentoControl: TProcedimentoControl;
     procedure BuscarServicos;
+    procedure BuscarProcedimentos;
     { Private declarations }
   public
     { Public declarations }
@@ -56,6 +62,21 @@ implementation
 uses uFrmServicoView;
 
 {$R *.dfm}
+
+procedure TuPrincipalForm.BuscarProcedimentos;
+var  vQuery : TFDQuery;
+begin
+  memProcedimentos.Close;
+
+  vQuery := vProcedimentoControl.GetProcedimentosByServico(memServicosID.Value);
+  try
+    vQuery.FetchAll;
+    memProcedimentos.Data := vQuery.Data;
+  finally
+    vQuery.Close;
+    FreeAndNil(vQuery);
+  end;
+end;
 
 procedure TuPrincipalForm.BuscarServicos;
 var  vQuery : TFDQuery;
@@ -113,7 +134,7 @@ begin
   begin
     vServicoControl.ServicoModel.Acao := uAcaoModel.tDeletar;
     vServicoControl.ServicoModel.id_servico := memServicosID.Value;
-    if vServicoControl.Save then
+    if vServicoControl.Save <> 0 then
       ShowMessage('Excluído com sucesso!');
     Self.BuscarServicos;
   end;
@@ -124,19 +145,28 @@ begin
   Self.BuscarServicos;
 end;
 
+procedure TuPrincipalForm.dsServicosDataChange(Sender: TObject;
+  Field: TField);
+begin
+  Self.BuscarProcedimentos;
+end;
+
 procedure TuPrincipalForm.FormCreate(Sender: TObject);
 begin
   vServicoControl := TServicoControl.Create;
+  vProcedimentoControl := TProcedimentoControl.Create;
 end;
 
 procedure TuPrincipalForm.FormDestroy(Sender: TObject);
 begin
   vServicoControl.Free;
+  vProcedimentoControl.Free;
 end;
 
 procedure TuPrincipalForm.FormShow(Sender: TObject);
 begin
   Self.BuscarServicos;
+  Self.BuscarProcedimentos;
 end;
 
 end.
