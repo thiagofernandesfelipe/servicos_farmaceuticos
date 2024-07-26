@@ -59,9 +59,9 @@ begin
   vServicoDAO := TServicoDAO.Create;
   try
     case FAcao of
-      uAcaoModel.tAdd: Result := vServicoDAO.Add(Self);
-      uAcaoModel.tEdit: Result := vServicoDAO.Edit(Self);
-      uAcaoModel.tDelete: Result := vServicoDAO.Delete(Self);
+      uAcaoModel.tAdicionar: Result := vServicoDAO.Add(Self);
+      uAcaoModel.tEditar: Result := vServicoDAO.Edit(Self);
+      uAcaoModel.tDeletar: Result := vServicoDAO.Delete(Self);
     end;
   finally
     vServicoDAO.Free;
