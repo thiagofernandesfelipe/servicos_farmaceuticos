@@ -12,6 +12,7 @@ type
   public
     constructor Create;
     function GetServicos: TFDQuery;
+    function GetServicoById(AIdServico: Integer): TFDQuery;
     function Add(AServicoModel: TServicoModel): Boolean;
     function Edit(AServicoModel: TServicoModel): Boolean;
     function Delete(AServicoModel: TServicoModel): Boolean;
@@ -97,5 +98,17 @@ begin
 
   Result := vQuery;
 end;
+
+function TServicoDAO.GetServicoById(AIdServico: Integer): TFDQuery;
+var
+  vQuery: TFDQuery;
+begin
+  vQuery := FConexao.CriarQuery();
+  vQuery.Open('select id_servico, data, farmaceutico, paciente, obs, valor_total from servico_farmaceutico'+
+              ' where id_servico = :id_servico', [AIdServico]);
+
+  Result := vQuery;
+end;
+
 
 end.
