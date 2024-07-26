@@ -8,7 +8,8 @@ uses
   uServicoModel in 'Models\uServicoModel.pas',
   uServicoDAO in 'DAO\uServicoDAO.pas',
   uAcaoModel in 'Models\uAcaoModel.pas',
-  uFrmServicoView in 'Views\uFrmServicoView.pas' {frmServicoView};
+  uFrmServicoView in 'Views\uFrmServicoView.pas' {frmServicoView},
+  uServicoControl in 'Controllers\uServicoControl.pas';
 
 {$R *.res}
 
