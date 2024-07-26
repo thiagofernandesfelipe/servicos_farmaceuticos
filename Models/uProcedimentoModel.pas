@@ -23,6 +23,7 @@ type
   public
     function Save: Boolean;
     function GetProcedimentosByServico(AIdProcedimento: integer): TFDQuery;
+    function GetValorTotal(AIdServico: integer): Double;
 
     property Id_Servico:integer read FId_Servico write SetId_Servico;
     property Id_Procedimento: integer read FId_Procedimento write SetId_Procedimento;
@@ -50,6 +51,17 @@ begin
   end;
 end;
 
+function TProcedimentoModel.GetValorTotal(AIdServico: integer): Double;
+var vProcedimentoDAO: TProcedimentoDAO;
+begin
+  vProcedimentoDAO := TProcedimentoDAO.Create;
+  try
+    Result := vProcedimentoDAO.GetValorTotal(AIdServico);
+  finally
+    vProcedimentoDAO.Free;
+  end;
+end;
+
 function TProcedimentoModel.Save: Boolean;
 var vProcedimentoDAO: TProcedimentoDAO;
 begin
@@ -58,7 +70,7 @@ begin
     case FAcao of
       uAcaoModel.tAdicionar: Result := vProcedimentoDAO.Add(Self);
       //uAcaoModel.tEditar: Result := vServicoDAO.Edit(Self);
-      //uAcaoModel.tDeletar: Result := vServicoDAO.Delete(Self);
+      uAcaoModel.tDeletar: Result := vProcedimentoDAO.Delete(Self);
     end;
   finally
     vProcedimentoDAO.Free;

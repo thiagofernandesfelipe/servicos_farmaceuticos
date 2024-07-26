@@ -201,6 +201,7 @@ object frmServicoView: TfrmServicoView
       Height = 25
       Caption = 'Remover'
       TabOrder = 6
+      OnClick = Button3Click
     end
     object ComboBox1: TComboBox
       Left = 104
@@ -264,6 +265,12 @@ object frmServicoView: TfrmServicoView
       DisplayLabel = 'Valor'
       FieldName = 'valor'
       Size = 2
+    end
+    object memProcedimentosid_servico: TIntegerField
+      FieldName = 'id_servico'
+    end
+    object memProcedimentosid_procedimento: TIntegerField
+      FieldName = 'id_procedimento'
     end
   end
   object dsProcedimentos: TDataSource

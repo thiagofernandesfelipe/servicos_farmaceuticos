@@ -15,6 +15,8 @@ type
 
     function GetProcedimentosByServico(AIdServico: integer): TFDQuery;
     function Add(AProcedimentoModel: TProcedimentoModel): Boolean;
+    function Delete(AprocedimentoModel: TProcedimentoModel): Boolean;
+    function GetValorTotal(AIdServico: Integer): Double;
 
   end;
 
@@ -54,6 +56,21 @@ begin
   FConexao :=  TConexaoControl.GetInstance().Conexao;
 end;
 
+function TProcedimentoDAO.Delete(AprocedimentoModel: TProcedimentoModel): Boolean;
+var
+  vQuery: TFDQuery;
+begin
+  try
+    vQuery := FConexao.CriarQuery();
+    vQuery.ExecSQL('delete from servico_procedimentos'+
+                ' where id_servico = :id_servico'+
+                ' and id_procedimento = :id_procedimento', [AProcedimentoModel.Id_Servico, AProcedimentoModel.Id_Procedimento]);
+    Result := true;
+  finally
+    vQuery.Free;
+  end;
+end;
+
 function TProcedimentoDAO.GetProcedimentosByServico(AIdServico: integer): TFDQuery;
 var
   vQuery: TFDQuery;
@@ -62,6 +79,20 @@ begin
   vQuery.Open('select id_servico, id_procedimento, tipo, descricao, valor from servico_procedimentos'+
               ' where id_servico = :id_servico', [AIdServico]);
   Result := vQuery;
+end;
+
+function TProcedimentoDAO.GetValorTotal(AIdServico: Integer): Double;
+var
+  vQuery: TFDQuery;
+begin
+  try
+    vQuery := FConexao.CriarQuery();
+    vQuery.Open('select sum(valor) as valor_total from servico_procedimentos'+
+                ' where id_servico = :id_servico', [AIdServico]);
+    Result := vQuery.FieldByName('valor_total').AsFloat;
+  finally
+    vQuery.Free;
+  end;
 end;
 
 end.

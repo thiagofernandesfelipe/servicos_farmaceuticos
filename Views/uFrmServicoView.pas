@@ -41,11 +41,14 @@ type
     memProcedimentostipo: TStringField;
     memProcedimentosdescricao: TStringField;
     memProcedimentosvalor: TBCDField;
+    memProcedimentosid_servico: TIntegerField;
+    memProcedimentosid_procedimento: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     vServicoControl: TServicoControl;
     vProcedimentoControl: TProcedimentoControl;
@@ -89,6 +92,10 @@ begin
   if vProcedimentoControl.Save then
     ShowMessage('Procedimento Adicionado!');
 
+  ComboBox1.ItemIndex := -1;
+  Edit1.Text := '';
+  Edit2.Text := '';
+
   Self.BuscarProcedimentos;
 end;
 
@@ -102,6 +109,19 @@ begin
   if vServicoControl.Save then
   begin
     ShowMessage('Registro Salvo!');
+  end;
+end;
+
+procedure TfrmServicoView.Button3Click(Sender: TObject);
+begin
+  if MessageDlg('Tem certeza que deseja deletar este serviço?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    vProcedimentoControl.ProcedimentoModel.Acao := uAcaoModel.tDeletar;
+    vProcedimentoControl.ProcedimentoModel.id_servico := memProcedimentosid_servico.Value;
+    vProcedimentoControl.ProcedimentoModel.id_procedimento := memProcedimentosid_procedimento.Value;
+    if vProcedimentoControl.Save then
+      ShowMessage('Excluído com sucesso!');
+    Self.BuscarProcedimentos;
   end;
 end;
 
