@@ -5,7 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.Mask, Vcl.Grids, Data.DB, Vcl.DBGrids, uServicoControl, uAcaoModel;
+  Vcl.Mask, Vcl.Grids, Data.DB, Vcl.DBGrids, uServicoControl, uAcaoModel,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmServicoView = class(TForm)
@@ -26,9 +29,24 @@ type
     Button2: TButton;
     ePaciente: TEdit;
     eFarmaceutico: TEdit;
+    Button3: TButton;
+    Label9: TLabel;
+    ComboBox1: TComboBox;
+    Label10: TLabel;
+    Edit1: TEdit;
+    Label11: TLabel;
+    Edit2: TEdit;
+    memProcedimentos: TFDMemTable;
+    IntegerField1: TIntegerField;
+    DateField1: TDateField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    BCDField1: TBCDField;
+    dsProcedimentos: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     vServicoControl: TServicoControl;
     { Private declarations }
@@ -52,7 +70,9 @@ begin
   vServicoControl.ServicoModel.Obs := Memo1.Text;
 
   if vServicoControl.Save then
+  begin
     ShowMessage('Registro Salvo!');
+  end;
 end;
 
 procedure TfrmServicoView.LoadServico(AIdServico: Integer);
@@ -74,6 +94,12 @@ begin
   end;
 end;
 
+
+procedure TfrmServicoView.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  ModalResult := mrOk;
+end;
 
 procedure TfrmServicoView.FormCreate(Sender: TObject);
 begin
