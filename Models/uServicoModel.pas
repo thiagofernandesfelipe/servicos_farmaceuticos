@@ -21,12 +21,11 @@ type
     procedure SetValor_Total(const Value: Double);
     procedure SetAcao(const Value: TAcao);
     procedure Setid_servico(const Value: integer);
-    procedure LoadById(AIdServico: Integer);
 
   public
     function GetServicos: TFDQuery;
     function Save: Boolean;
-
+    procedure LoadById(AIdServico: Integer);
     property id_servico : integer read Fid_servico write Setid_servico;
     property Data: TDate read FData write SetData;
     property Farmaceutico: string read FFarmaceutico write SetFarmaceutico;
