@@ -2,7 +2,7 @@ unit uServicoModel;
 
 interface
 
-uses uAcaoModel;
+uses uAcaoModel, FireDac.Comp.Client;
 
 type
   TServicoModel = class
@@ -21,6 +21,7 @@ type
     procedure SetAcao(const Value: TAcao);
 
   public
+    function GetServicos: TFDQuery;
     property Data: TDate read FData write SetData;
     property Farmaceutico: string read FFarmaceutico write SetFarmaceutico;
     property Paciente: string read FPaciente write SetPaciente;
