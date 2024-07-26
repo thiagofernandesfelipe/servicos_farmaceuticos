@@ -3,7 +3,7 @@ unit uAcaoModel;
 interface
 
 type
-  TAcao = (tView, tAdd, tEdit, tDelete);
+  TAcao = (tVisualizar, tAdicionar, tEditar, tDeletar);
 
 implementation
 
